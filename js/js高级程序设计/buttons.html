@@ -1,0 +1,60 @@
+<body>
+</body>
+
+<script>
+	(function(){
+		var Buttons=function(){
+
+			alert(this.constructor==arguments.callee)
+			var _this=this;
+
+			this.doms=[];
+			this.datas=["red","yellow","pink","blue","green"];
+
+			this.datas.forEach(function(item,index){
+				var button=_this.createButton(item);
+				button.addButton(document.body);
+			});			
+		}
+
+		Buttons.fn=Buttons.prototype;
+
+		Buttons.fn.eventHandlers=function(ev){
+			if(this.nodeType==1&&this.tagName.toLowerCase()=="button"){
+				switch(ev.type){
+					case "click":
+						Buttons.processHandler.clickButton(this);
+					break;
+				}					
+			}	
+		}
+
+		Buttons.processHandler={
+			clickButton:function(item){
+				document.body.style.background=item.id;
+			}
+		}  
+
+		
+
+		Buttons.fn.createButton=function(item){
+			var _this=this;
+
+			var button=document.createElement("button");
+			button.id=item;
+			button.innerHTML=item;
+			button.onclick=this.eventHandlers;
+
+			return {
+				addButton:function(parent){
+					parent.appendChild(button);
+					_this.doms.push(button);
+				}
+			}			
+		};
+		
+		var buttons=new Buttons();
+	})();
+
+
+</script>

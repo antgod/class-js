@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script>
+        f=function(){return true;};
+        g=function(){return false;};
+        (function(){
+            if(g()&&[]==![]){
+                //这里面的代码不可能走
+                alert(1)
+            }
+        })();
+
+        []==false;
+        Number([].toString());
+
+        alert(f());
+        alert(g());
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="raf.js"></script>
+
+</head>
+<body>
+<div id="demo1" style="position:absolute; width:100px; height:100px; background:#ccc; left:0; top:0;"></div>
+<div id="demo2" style="position:absolute; width:100px; height:100px; background:#ccc; left:0; top:120px;"></div>
+<script>
+    var demo1 = document.getElementById('demo1');
+    var demo2 = document.getElementById('demo2');
+    function rander1() {
+        demo1.style.left = parseInt(demo1.style.left) + 2 + 'px'; //每一帧向右移动1px
+    }
+
+    function rander2() {
+        demo2.style.left = parseInt(demo2.style.left) + 1 + 'px'; //每一帧向右移动1px
+    }
+    requestAnimationFrame(function () {
+        rander1();
+        //当超过300px后才停止
+        if (parseInt(demo1.style.left) <= 300) requestAnimationFrame(arguments.callee);
+    });
+
+    var timmer=setInterval(function(){
+        if(parseInt(demo2.style.left) >= 300){
+           clearInterval(timmer);
+        }
+        rander2();
+    },10);
+</script>
+</body>
+</html>

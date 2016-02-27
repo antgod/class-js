@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body style="height: 2000px;">
+
+</body>
+<script>
+    function MySwipe(obj) {
+        obj.ontouchstart = this.down;
+        obj.ontouchmove =  this.move;
+        obj.ontouchend =  this.up;
+    }
+
+    MySwipe.prototype.down=function(ev) {
+        var ev = ev.targetTouches[0];
+        this.pX = ev.pageX;
+        this.pY = ev.pageY;
+    };
+
+    MySwipe.prototype.move=function(ev) {
+        var ev = ev.targetTouches[0];
+
+        this.disX = ev.pageX - this.pX;
+        this.disY = ev.pageY - this.pY;
+    };
+
+    MySwipe.prototype.up=function(ev) {
+        if (!this.disX && !this.disY)return;
+
+        if (this.disY > 0) {
+            this.direction="top";
+        } else {
+            this.direction="bottom";
+        }
+    };
+
+    var swipe=new MySwipe(document);
+
+</script>
+</html>

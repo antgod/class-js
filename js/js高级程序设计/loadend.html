@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" language="JavaScript">
+
+        //: 判断网页是否加载完成
+        document.onreadystatechange = function () {
+            if(document.readyState=="complete") {
+                console.log("onreadystatechange");
+            }
+        }
+
+        window.onload=function(){
+            console.log("onload");
+        }
+
+    </script>
+</head>
+<body>
+    <img class="currentImg" src="http://pic25.nipic.com/20121209/9252150_194258033000_2.jpg" width="1024" height="585" log-rightclick="p=5.102" title="点击查看源网页" style="cursor: pointer; width: 517.385px; height: 295px; top: 0px; left: 198.308px; display: block;">
+    <img class="currentImg" src="http://pic.33.la/20141114bztp/622.jpg" width="1920" height="1080"  width="1500" height="844" log-rightclick="p=5.102" title="点击查看源网页" style="cursor: pointer; width: 346.376px; height: 195px; top: 0px; left: 283.812px; display: block;">
+    <img class="currentImg" src="http://pic.52che.com/Files/blogupfile/10/04/13/141230765726_b.jpg" width="577" height="394" log-rightclick="p=5.102" title="点击查看源网页" style="cursor: pointer; width: 432.667px; height: 295px; top: 0px; left: 240.667px; display: block;">
+
+</body>
+</html>

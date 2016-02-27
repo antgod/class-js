@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script>
+//        多态的最根本好处在于，你不必再向对象询问“你是什么类型”而后根据得到的答
+//        案调用对象的某个行为——你只管调用该行为就是了，其他的一切多态机制都会为你安
+//        排妥当。
+//
+        var makeSound=function(animal){
+            if(typeof animal.sound=="function"){
+                animal.sound();
+            }
+        };
+
+        var Duck=function(){};
+        Duck.prototype.sound=function(){
+            console.log("嘎嘎嘎");
+        };
+        var Chicken=function(){};
+        Chicken.prototype.sound=function(){
+            console.log("咯咯咯");
+        };
+
+        makeSound(new Duck());
+        makeSound(new Chicken());
+    </script>
+</head>
+<body>
+
+</body>
+</html>

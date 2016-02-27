@@ -1,0 +1,38 @@
+https://aaaaaashu.gitbooks.io/mac-dev-setup/content/
+
+http://box.macx.cn/
+
+term homebrew
+
+shadowsockes 翻墙
+
+clearmymac3
+
+charles
+
+nvm 
+
+xscope
+
+mac 有 appstore
+
+phpstorm pycharm
+
+Visual Studio Code
+
+https://code.visualstudio.com/
+
+
+
+
+Alfred 2 查找工具
+
+zsh 命令行工具
+
+oh my zsh 是zsh插件
+
+item2 插件
+
+静态博客Jekyll hexo
+
+HTTP权威指南 : 权威指南，Web性能权威指南

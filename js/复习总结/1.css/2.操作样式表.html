@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="getStyle.js"></script>
+    <script>
+        //预加载css文件
+        function loadcss(path) {
+            if (!path || path.length === 0) {
+                throw new Error('argument "path" is required !');
+            }
+            var head = document.getElementsByTagName('head')[0];
+            var link = document.createElement('link');
+            link.href = path;
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            head.appendChild(link);
+            return link;
+        }
+
+        function getStyleSheet(element){
+            return element.sheet || element.styleSheet;
+        }
+
+        function getRules(sheet){
+            return sheet.cssRules || sheet.rules;
+        }
+
+        window.onload=function(){
+            var css=loadcss("style.css");
+            css.onload=function(){
+                var sheet=getStyleSheet(css);
+                var rules=getRules(sheet);
+                sheet.insertRule(".test1{ background-color: #ddccee;width:100px;height:100px;}",rules.length); //DOM 方法
+                sheet.insertRule(".test2,.test3{ background-color: #eeccdd;width:150px;height:150px;margin:50px;}",rules.length); //DOM 方法
+                sheet.insertRule(".test2{ background-color: #eeccdd;width:150px;height:150px;" +
+                        "transform:rotate(30deg);}",rules.length); //DOM 方法
+                sheet.insertRule(".test3{margin-left:250px;}",rules.length); //DOM 方法
+                rules[0].style.background="#eee";
+            }
+        };
+        function changeRule(){
+            var sheet=document.styleSheets[0];
+            var rules=sheet.rules;
+            rules=[].slice.call(rules);
+            rules.forEach(function(item,index){
+                if(item.selectorText==".test2, .test3"){
+                    item.style.margin="100px";
+                }
+            });
+        }
+        function deleteRule(){
+            var sheet=document.styleSheets[0];
+            var rules=sheet.rules;
+            rules=[].slice.call(rules);
+            rules.forEach(function(item,index){
+                if(item.selectorText==".test2"){
+                    sheet.deleteRule(index);
+                }
+            });
+        }
+
+        function getRule(){
+            var div=document.querySelector(".test2");
+            alert(div.getStyle("width"));
+        }
+
+        function getClassList(){
+            var div=document.querySelector(".test2");
+            div.classList.remove("test3");
+            alert("删除test3完毕");
+            div.classList.add("test3");
+            alert("添加test3完毕");
+        }
+
+    </script>
+</head>
+<body>
+<div class="test1"></div>
+<div class="test2 test3"></div>
+<button onclick="changeRule(event)">修改样式</button>
+<button onclick="deleteRule(event)">删除样式</button>
+<button onclick="getRule(event)">获取样式</button>
+<button onclick="getClassList(event)">classList</button>
+</body>
+</html>

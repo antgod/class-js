@@ -1,0 +1,21 @@
+<script>
+    var a=[3,4,5,6];
+    a.a=1;
+    a.__proto__.dumy=7;
+
+    //分别写出方法输出a原生属性、内部属性、原型链属性，删除内部属性，保留原型链属性
+
+    for(var i in a){
+        if(a.hasOwnProperty(i)){
+            console.log("内部属性："+i+":"+a[i]);
+            delete a[i];
+        }else{
+            console.log("原型属性："+i+":"+a[i]);
+        }
+    }
+
+    console.log(Object.getOwnPropertyNames(a.__proto__.prototype))
+
+
+    console.log(a);
+</script>
