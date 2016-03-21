@@ -22,7 +22,7 @@
                 log:function(){
                     var args=arguments;
                     cache.push(function(){
-                        return myconsole.log.apply(myconsole,args);
+                        myconsole.log.apply(myconsole,args);
                     });
                 }
             }
