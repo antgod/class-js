@@ -1,0 +1,11 @@
+1.String.prototype.trim = function(){ return this.replace(/^\s+|\s+$/g, '') }
+
+2.if(this === void 0 || this === null) throw new TypeError()
+
+3.~-1=0
+
+4.
+    function type(obj) {
+        return obj == null ? String(obj) :
+            class2type[toString.call(obj)] || "object"
+    }

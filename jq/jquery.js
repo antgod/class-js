@@ -212,13 +212,12 @@ jQuery.fn = jQuery.prototype = {
 			this.toArray() :
 
 			// Return just the object
-			( num < 0 ? this[ this.length + num ] : this[ num ] );
+			( num < 0 ? this[ this.length + num] : this[ num ] );
 	},
 
 	// Take an array of elements and push it onto the stack
 	// (returning the new matched element set)
 	pushStack: function( elems ) {
-
 		// Build a new jQuery matched element set
 		var ret = jQuery.merge( this.constructor(), elems );
 
@@ -341,7 +340,7 @@ jQuery.extend = jQuery.fn.extend = function() {
 			}
 		}
 	}
-
+	console.log(target);
 	// Return the modified object
 	return target;
 };
