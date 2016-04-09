@@ -58,7 +58,7 @@ var
 	core_trim = core_version.trim,
 
 	// Define a local copy of jQuery
-	jQuery = function( selector, context ) {
+	jQuery = function( selector, context ) {    //context : 上下文对象,在某个区域搜索,可以传递字符串或者dom
 		// The jQuery object is actually just the init constructor 'enhanced'
 		return new jQuery.fn.init( selector, context, rootjQuery );
 	},
@@ -72,10 +72,19 @@ var
 	// A simple way to check for HTML strings
 	// Prioritize #id over <tag> to avoid XSS via location.hash (#9521)
 	// Strict HTML recognition (#11290: must start with <)
-	rquickExpr = /^(?:\s*(<[\w\W]+>)[^>]*|#([\w-]*))$/,
+
+	//<li>hello,匹配结果 ['<li>hello','<li>',null]
+	//#div,匹配结果['#div',null,'div']
+	rquickExpr = /^(?:\s*(<[\w\W]+>)[^>]*|#([\w-]*))$/,     //匹配标签,分两个组
 
 	// Match a standalone tag
-	rsingleTag = /^<(\w+)\s*\/?>(?:<\/\1>|)$/,
+	///^<(\w+)(\s*)\/?>(?:<\/\1\2>|)$/.exec('<li /></li >')
+	//["<li /></li >", "li", " "]
+	///^<(\w+)\s*\/?>(?:<\/\1>|)$/.exec('<li/></li>')
+	//["<li/></li>", "li"]
+	///^<(\w+)\s*\/?>(?:<\/\1>|)$/.exec('<li>dasf</li>')
+	//null
+	rsingleTag = /^<(\w+)\s*\/?>(?:<\/\1>|)$/,              //匹配单标签
 
 	// Matches dashed string for camelizing
 	rmsPrefix = /^-ms-/,
@@ -95,35 +104,38 @@ var
 
 jQuery.fn = jQuery.prototype = {
 	// The current version of jQuery being used
-	jquery: core_version,
+	jquery: core_version,         //jq版本
 
-	constructor: jQuery,
+	constructor: jQuery,          //jq类
 	init: function( selector, context, rootjQuery ) {
 		var match, elem;
 
 		// HANDLE: $(""), $(null), $(undefined), $(false)
-		if ( !selector ) {
+		if ( !selector ) {           //传递错误处理
 			return this;
 		}
 
 		// Handle HTML strings
 		if ( typeof selector === "string" ) {
+			//<li>,<li></li>,<ul><li></li></ul>
 			if ( selector.charAt(0) === "<" && selector.charAt( selector.length - 1 ) === ">" && selector.length >= 3 ) {
 				// Assume that strings that start and end with <> are HTML and skip the regex check
 				match = [ null, selector, null ];
 
 			} else {
-				match = rquickExpr.exec( selector );
+				match = rquickExpr.exec( selector );        //匹配创建标签或者ID选择器
 			}
 
 			// Match html or make sure no context is specified for #id
-			if ( match && (match[1] || !context) ) {
+			if ( match && (match[1] || !context) ) {     //如果创建标签或者ID选择器(ID不能有上下文)
 
 				// HANDLE: $(html) -> $(array)
-				if ( match[1] ) {
+				if ( match[1] ) {                                   //如果是创建标签
+					//上下文,context可能是iframe,比如contentWindow.document,通常context=document
 					context = context instanceof jQuery ? context[0] : context;
 
 					// scripts is true for back-compat
+					//jquery.parseHTML,把字符串转成dom数组,merge,把数组合并到jquery对象中,转成对象
 					jQuery.merge( this, jQuery.parseHTML(
 						match[1],
 						context && context.nodeType ? context.ownerDocument || context : document,
@@ -131,22 +143,22 @@ jQuery.fn = jQuery.prototype = {
 					) );
 
 					// HANDLE: $(html, props)
+					//如果match[1]是单标签(见正则注释),并且传递第二个参数是字面量,如{html:'test',title:'title'}
 					if ( rsingleTag.test( match[1] ) && jQuery.isPlainObject( context ) ) {
-						for ( match in context ) {
+						for ( match in context ) {         //循环参数属性
 							// Properties of context are called as methods if possible
-							if ( jQuery.isFunction( this[ match ] ) ) {
-								this[ match ]( context[ match ] );
+							if ( jQuery.isFunction( this[ match ] ) ) {  //如果jquery有这个函数,比如html
+								this[ match ]( context[ match ] );       //执行函数,this.html('test')
 
 							// ...and otherwise set as attributes
-							} else {
+							} else {                                     //如果jquery没有这个函数,添加到属性
 								this.attr( match, context[ match ] );
 							}
 						}
 					}
-
 					return this;
 
-				// HANDLE: $(#id)
+				// HANDLE: $(#id)                     //id选择器
 				} else {
 					elem = document.getElementById( match[2] );
 
@@ -158,34 +170,35 @@ jQuery.fn = jQuery.prototype = {
 						this[0] = elem;
 					}
 
-					this.context = document;
-					this.selector = selector;
+					this.context = document;                   //赋值上下文
+					this.selector = selector;                  //赋值选择器:如:#div
 					return this;
 				}
 
 			// HANDLE: $(expr, $(...))
-			} else if ( !context || context.jquery ) {
+			} else if ( !context || context.jquery ) { //如果上下文对象不存在,从document中查找,如果上下文对象是 jQuery对象,调用上下文.find
 				return ( context || rootjQuery ).find( selector );
 
 			// HANDLE: $(expr, context)
 			// (which is just equivalent to: $(context).find(expr)
-			} else {
+			} else {                                              //上下文对象如果不是jq对象,则转成jquery对象$(context)
 				return this.constructor( context ).find( selector );
 			}
 
 		// HANDLE: $(DOMElement)
-		} else if ( selector.nodeType ) {
+		} else if ( selector.nodeType ) {       				  //如果是dom对象
 			this.context = this[0] = selector;
 			this.length = 1;
 			return this;
 
 		// HANDLE: $(function)
 		// Shortcut for document ready
-		} else if ( jQuery.isFunction( selector ) ) {
+		} else if ( jQuery.isFunction( selector ) ) {          //传递函数,初始化后执行
+
 			return rootjQuery.ready( selector );
 		}
 
-		if ( selector.selector !== undefined ) {
+		if ( selector.selector !== undefined ) {        //传递{selector:'.div'},创建jq对象,没有context
 			this.selector = selector.selector;
 			this.context = selector.context;
 		}
@@ -197,7 +210,7 @@ jQuery.fn = jQuery.prototype = {
 	selector: "",
 
 	// The default length of a jQuery object is 0
-	length: 0,
+	length: 0,         //jquery数组长度
 
 	toArray: function() {
 		return core_slice.call( this );
@@ -340,7 +353,6 @@ jQuery.extend = jQuery.fn.extend = function() {
 			}
 		}
 	}
-	console.log(target);
 	// Return the modified object
 	return target;
 };

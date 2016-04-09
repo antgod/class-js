@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery.js"></script>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="div" id="div"></div>
+    </div>
+
+<script>
+    console.log($().jquery);
+    console.log($().constructor);
+
+
+//    console.log($('.div',document.querySelector('.wrapper')))
+//    console.log($('.div'))
+//    console.log($(false))
+
+//    console.log($('<li>hello'));
+//    console.log($('#div'))
+//    console.log(document.body)
+
+//    $(function(){
+//        console.log(123)
+//
+//    })
+
+    console.log($({selector:'.div'}),$('.div'));
+</script>
+</body>
+</html>
