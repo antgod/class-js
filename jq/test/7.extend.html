@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script sr></script>
+</head>
+<body>
+
+<script src="../jquery.js"></script>
+<script>
+
+$.extend({
+    aaa:function(){
+        console.log(123);
+    }
+});
+
+$.fn.extend({
+    aaa:function(){
+        console.log(456);
+    }
+});
+
+$.aaa();
+$().aaa();
+
+</script>
+</body>
+</html>

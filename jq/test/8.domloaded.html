@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+<script src="../jquery.js"></script>
+<script>
+var startDate=new Date();
+$(function(){
+	var e=new Date();
+	console.log('jq loaded',e-startDate);
+});
+
+//$(document).ready(function(){});
+//
+//$().ready();
+//
+//$.ready()
+
+window.addEventListener("DOMContentLoaded",function(){
+	var e=new Date();
+	console.log('dom loaded',e-startDate);
+},false);
+
+//所有都加载完毕后触发
+window.onload = function(){
+	var e=new Date();
+	console.log('window loaded',e-startDate);
+};
+</script>
+</head>
+
+<body>
+<div>aaaaa</div>
+<img src="http://img1.3lian.com/2015/w7/98/d/22.jpg">
+</body>
+</html>

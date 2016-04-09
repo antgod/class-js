@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script sr></script>
+</head>
+<body>
+    <div class="a">1</div>
+    <div class="b">2</div>
+    <div class="c">3</div>
+    <div class="d">4</div>
+
+<script src="../jquery.js"></script>
+<script>
+    $(".a").pushStack($(".b")).css('background-color','#eee');         //选取当前栈最新元素
+    var stack=$(".a").pushStack($(".b")).pushStack($('.c')).pushStack($('.d'));
+
+    console.log(stack.prevObject.prevObject.html('bbbbb'));
+    console.log(stack.end().html('ccc'));
+
+</script>
+</body>
+</html>
