@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+<script src="../jquery.js"></script>
+<script>
+var startDate=new Date();
+$.holdReady(true);
+
+$.getScript('./holdtest.js',function(){
+	$.holdReady(false);
+});
+
+$(function(){
+	console.log('holdtestdomloaded');
+});
+</script>
+</head>
+
+<body>
+<div>aaaaa</div>
+<button onclick="cancleHold()">取消hold</button>
+</body>
+</html>

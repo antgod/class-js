@@ -250,7 +250,7 @@ jQuery.fn = jQuery.prototype = {
 	},
 
 	ready: function( fn ) {
-		// Add the callback
+		// Add the callback  ,ready process one
 		jQuery.ready.promise().done( fn ); //调用promise
 
 		return this;
@@ -384,17 +384,16 @@ jQuery.extend({
 	// Hold (or release) the ready event
 	holdReady: function( hold ) {
 		if ( hold ) {
-			jQuery.readyWait++;
+			jQuery.readyWait++;                                //如果调用hold函数,则保持加载完毕状态不触发
 		} else {
-			jQuery.ready( true );
+			jQuery.ready( true );                              //触发加载完毕事件
 		}
 	},
 
 	// Handle when the DOM is ready
 	ready: function( wait ) {
-
 		// Abort if there are pending holds or we're already ready
-		if ( wait === true ? --jQuery.readyWait : jQuery.isReady ) {
+		if ( wait === true ? --jQuery.readyWait : jQuery.isReady ) {   //如果调用hold:false,但是readywait不为0,或者已经ready,退出
 			return;
 		}
 
@@ -402,16 +401,16 @@ jQuery.extend({
 		jQuery.isReady = true;
 
 		// If a normal DOM Ready event fired, decrement, and wait if need be
-		if ( wait !== true && --jQuery.readyWait > 0 ) {
+		if ( wait !== true && --jQuery.readyWait > 0 ) {               //如果hold:true过,执行ready方法,退出
 			return;
 		}
 
 		// If there are functions bound, to execute
-		readyList.resolveWith( document, [ jQuery ] );
+		readyList.resolveWith( document, [ jQuery ] );       	 //执行dom.ready方法
 
 		// Trigger any bound ready events
 		if ( jQuery.fn.trigger ) {
-			jQuery( document ).trigger("ready").off("ready");
+			jQuery( document ).trigger("ready").off("ready");    //手动触发ready方法,如果已绑定,则执行
 		}
 	},
 
@@ -419,17 +418,17 @@ jQuery.extend({
 	// Since version 1.3, DOM methods and functions like alert
 	// aren't supported. They return false on IE (#2968).
 	isFunction: function( obj ) {
-		return jQuery.type(obj) === "function";
+		return jQuery.type(obj) === "function"; //IE8以及以下判断alert会返回object,其他会返回funtion.见bug #2968
 	},
 
-	isArray: Array.isArray,
+	isArray: Array.isArray,		// 判断是否是数组
 
-	isWindow: function( obj ) {
+	isWindow: function( obj ) {                                            //判断是否是 window
 		return obj != null && obj === obj.window;
 	},
 
-	isNumeric: function( obj ) {
-		return !isNaN( parseFloat(obj) ) && isFinite( obj );
+	isNumeric: function( obj ) {                                       //typeof 判断数字,如果是NaN,依然返回数字
+		return !isNaN( parseFloat(obj) ) && isFinite( obj );           //有限的数字并且不是NaN
 	},
 
 	type: function( obj ) {
@@ -442,11 +441,13 @@ jQuery.extend({
 			typeof obj;
 	},
 
+	//如果是new Object()或者{}类型对象
 	isPlainObject: function( obj ) {
 		// Not plain objects:
 		// - Any object or value whose internal [[Class]] property is not "[object Object]"
 		// - DOM nodes
 		// - window
+		// 若果不是对象或者是dom或者是window
 		if ( jQuery.type( obj ) !== "object" || obj.nodeType || jQuery.isWindow( obj ) ) {
 			return false;
 		}
@@ -456,6 +457,7 @@ jQuery.extend({
 		// the "constructor" property of certain host objects, ie. |window.location|
 		// https://bugzilla.mozilla.org/show_bug.cgi?id=814622
 		try {
+			//如果对象的原型对象上有自己的属性 isPrototypeOf,则对象是Object对象,否则继承自Object类的对象
 			if ( obj.constructor &&
 					!core_hasOwn.call( obj.constructor.prototype, "isPrototypeOf" ) ) {
 				return false;
@@ -469,6 +471,7 @@ jQuery.extend({
 		return true;
 	},
 
+	//如果函数内没有属性,返回空
 	isEmptyObject: function( obj ) {
 		var name;
 		for ( name in obj ) {
@@ -828,6 +831,7 @@ jQuery.extend({
 	}
 });
 
+//ready process two
 jQuery.ready.promise = function( obj ) {
 	if ( !readyList ) {
 

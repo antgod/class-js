@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>无标题文档</title>
+    <script src="../jquery.js"></script>
+    <script>
+        console.log($.isPlainObject([]));
+
+        var error=new Error('error');
+        var typeerror=new TypeError('typeerror');
+
+        console.error('error');
+
+        try{
+            $.error('try');           //等于 throw new Error('error');
+        }catch (e){
+            $.error(e.stack);           //等于 throw new Error('error');
+        }
+
+
+
+
+    </script>
+</head>
+
+<body>
+<div>aaaaa</div>
+<button onclick="cancleHold()">取消hold</button>
+</body>
+</html>

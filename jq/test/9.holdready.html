@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+<script src="../jquery.js"></script>
+<script>
+var startDate=new Date();
+$.holdReady(true);
+$.holdReady(true);
+
+$(function(){
+	var e=new Date();
+	console.log('jq loaded',e-startDate);
+
+});
+
+$(document).on('ready',function(jq){
+	console.log(jq)
+});
+
+function cancleHold(){
+	$.holdReady(false);    //取消两次才能成功
+}
+</script>
+</head>
+
+<body>
+<div>aaaaa</div>
+<button onclick="cancleHold()">取消hold</button>
+</body>
+</html>
