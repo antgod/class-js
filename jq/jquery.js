@@ -488,7 +488,8 @@ jQuery.extend({
 	// context (optional): If specified, the fragment will be created in this context, defaults to document
 	// keepScripts (optional): If true, will include scripts passed in the html string
 	parseHTML: function( data, context, keepScripts ) {
-		if ( !data || typeof data !== "string" ) {
+		debugger;
+		if ( !data || typeof data !== "string" ) {          //如果传入不是字符串,返回null
 			return null;
 		}
 		if ( typeof context === "boolean" ) {
@@ -502,13 +503,14 @@ jQuery.extend({
 
 		// Single tag
 		if ( parsed ) {
-			return [ context.createElement( parsed[1] ) ];
+			return [ context.createElement( parsed[1] ) ];     //如果单标签,创建返回
 		}
 
-		parsed = jQuery.buildFragment( [ data ], context, scripts );
+		//利用文档碎片创建节点:第三个参数为[],处理后会添加script标签
+		parsed = jQuery.buildFragment( [ data ], context, scripts );    //如果多标签
 
-		if ( scripts ) {
-			jQuery( scripts ).remove();
+		if ( scripts ) {     //如果第三个参数是假,则删除script标签
+			jQuery( scripts ).remove();                                 //如果有标签,执行返回
 		}
 
 		return jQuery.merge( [], parsed.childNodes );
@@ -525,7 +527,7 @@ jQuery.extend({
 
 		// Support: IE9
 		try {
-			tmp = new DOMParser();
+			tmp = new DOMParser();              //实例化DOMParser
 			xml = tmp.parseFromString( data , "text/xml" );
 		} catch ( e ) {
 			xml = undefined;
@@ -537,7 +539,7 @@ jQuery.extend({
 		return xml;
 	},
 
-	noop: function() {},
+	noop: function() {},                       //创建空函数
 
 	// Evaluates a script in a global context
 	globalEval: function( code ) {
@@ -546,15 +548,15 @@ jQuery.extend({
 
 		code = jQuery.trim( code );
 
-		if ( code ) {
+		if ( code ) {                       //如果有内容
 			// If the code includes a valid, prologue position
 			// strict mode pragma, execute code by injecting a
 			// script tag into the document.
-			if ( code.indexOf("use strict") === 1 ) {
+			if ( code.indexOf("use strict") === 1 ) { 	//如果是严格模式,创建script标签,执行
 				script = document.createElement("script");
 				script.text = code;
 				document.head.appendChild( script ).parentNode.removeChild( script );
-			} else {
+			} else {                                    //如果是普通模式,直接eval
 			// Otherwise, avoid the DOM node creation, insertion
 			// and removal by using an indirect global eval
 				indirect( code );
@@ -565,10 +567,14 @@ jQuery.extend({
 	// Convert dashed to camelCase; used by the css and data modules
 	// Microsoft forgot to hump their vendor prefix (#9572)
 	camelCase: function( string ) {
+		//a:所有匹配字符串,b:匹配组字符串
+		//"-ms-box-color".replace(/-(?=(ms|webkit))/,'').replace(/-([\da-z])/ig,
+		//	function(a,b){console.log(a,b);return b.toUpperCase()})
 		return string.replace( rmsPrefix, "ms-" ).replace( rdashAlpha, fcamelCase );
 	},
 
 	nodeName: function( elem, name ) {
+		//document.nodeName && document.nodeName.toLowerCase() === '#document'.toLowerCase()
 		return elem.nodeName && elem.nodeName.toLowerCase() === name.toLowerCase();
 	},
 
@@ -579,8 +585,8 @@ jQuery.extend({
 			length = obj.length,
 			isArray = isArraylike( obj );
 
-		if ( args ) {
-			if ( isArray ) {
+		if ( args ) {                    //仅供内部使用
+			if ( isArray ) {             //如果类数组
 				for ( ; i < length; i++ ) {
 					value = callback.apply( obj[ i ], args );
 
@@ -622,7 +628,7 @@ jQuery.extend({
 		return obj;
 	},
 
-	trim: function( text ) {
+	trim: function( text ) {               //直接调用trim函数
 		return text == null ? "" : core_trim.call( text );
 	},
 
@@ -631,12 +637,12 @@ jQuery.extend({
 		var ret = results || [];
 
 		if ( arr != null ) {
-			if ( isArraylike( Object(arr) ) ) {
-				jQuery.merge( ret,
-					typeof arr === "string" ?
+			if ( isArraylike( Object(arr) ) ) {   //如果是类数组
+				jQuery.merge( ret,                //取数组里的项添加到原数组
+					typeof arr === "string" ?     //如果字符串,直接放到数组返回
 					[ arr ] : arr
 				);
-			} else {
+			} else {                              //直接添加到最后
 				core_push.call( ret, arr );
 			}
 		}
@@ -645,6 +651,7 @@ jQuery.extend({
 	},
 
 	inArray: function( elem, arr, i ) {
+		//i:开始查询位置
 		return arr == null ? -1 : core_indexOf.call( arr, elem, i );
 	},
 
@@ -653,17 +660,17 @@ jQuery.extend({
 			i = first.length,
 			j = 0;
 
-		if ( typeof l === "number" ) {
+		if ( typeof l === "number" ) {          //如果第二个参数是数组
 			for ( ; j < l; j++ ) {
-				first[ i++ ] = second[ j ];
+				first[ i++ ] = second[ j ];       //数组合并
 			}
-		} else {
+		} else {                               //如果第二个参数是类数组
 			while ( second[j] !== undefined ) {
-				first[ i++ ] = second[ j++ ];
+				first[ i++ ] = second[ j++ ];    //json合并
 			}
 		}
 
-		first.length = i;
+		first.length = i;                        //重新指定长度
 
 		return first;
 	},
@@ -865,11 +872,11 @@ function isArraylike( obj ) {
 	var length = obj.length,
 		type = jQuery.type( obj );
 
-	if ( jQuery.isWindow( obj ) ) {
+	if ( jQuery.isWindow( obj ) ) {      //不是window对象
 		return false;
 	}
 
-	if ( obj.nodeType === 1 && length ) {
+	if ( obj.nodeType === 1 && length ) {          //如果是node节点
 		return true;
 	}
 
