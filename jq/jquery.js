@@ -665,7 +665,7 @@ jQuery.extend({
 				first[ i++ ] = second[ j ];       //数组合并
 			}
 		} else {                               //如果第二个参数是类数组
-			while ( second[j] !== undefined ) {
+			while ( second[j] !== undefined ) {                    ``
 				first[ i++ ] = second[ j++ ];    //json合并
 			}
 		}
