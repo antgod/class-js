@@ -675,18 +675,20 @@ jQuery.extend({
 		return first;
 	},
 
+	//过滤数组,如果callback返回真,填入数组
 	grep: function( elems, callback, inv ) {
 		var retVal,
 			ret = [],
 			i = 0,
 			length = elems.length;
-		inv = !!inv;
+		inv = !!inv;  //如果不传递,inv=false
 
 		// Go through the array, only saving the items
 		// that pass the validator function
 		for ( ; i < length; i++ ) {
+			//如果没有传递inv,则回调函数返回真的数组,会添加到ret
 			retVal = !!callback( elems[ i ], i );
-			if ( inv !== retVal ) {
+			if ( inv !== retVal ) {          //如果传递inv=true,则回调函数等于假的会添加到ret
 				ret.push( elems[ i ] );
 			}
 		}
@@ -695,6 +697,7 @@ jQuery.extend({
 	},
 
 	// arg is for internal usage only
+	//把每个回调函数的返回值添加到新数组
 	map: function( elems, callback, arg ) {
 		var value,
 			i = 0,
@@ -705,6 +708,7 @@ jQuery.extend({
 		// Go through the array, translating each of the items to their
 		if ( isArray ) {
 			for ( ; i < length; i++ ) {
+
 				value = callback( elems[ i ], i, arg );
 
 				if ( value != null ) {
@@ -724,6 +728,7 @@ jQuery.extend({
 		}
 
 		// Flatten any nested arrays
+		//二维数组转一维数组
 		return core_concat.apply( [], ret );
 	},
 
@@ -732,12 +737,14 @@ jQuery.extend({
 
 	// Bind a function to a context, optionally partially applying any
 	// arguments.
+	//修改指向
+	//var obj={show:function(){console.log('show');}} ;$(document).click($.proxy(obj,'show',1,2))
 	proxy: function( fn, context ) {
 		var tmp, args, proxy;
 
-		if ( typeof context === "string" ) {
+		if ( typeof context === "string" ) {   //context=show
 			tmp = fn[ context ];
-			context = fn;
+			context = fn;                      //context=function(){console.log('show');}
 			fn = tmp;
 		}
 
@@ -748,8 +755,9 @@ jQuery.extend({
 		}
 
 		// Simulated bind
-		args = core_slice.call( arguments, 2 );
+		args = core_slice.call( arguments, 2 );    //前两个参数是指向,这里指的是1,2
 		proxy = function() {
+			//合并1,2和执行函数的参数
 			return fn.apply( context || this, args.concat( core_slice.call( arguments ) ) );
 		};
 
