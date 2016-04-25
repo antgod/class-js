@@ -360,9 +360,9 @@ jQuery.extend = jQuery.fn.extend = function() {
 
 jQuery.extend({
 	// Unique for each copy of jQuery on the page
-	expando: "jQuery" + ( core_version + Math.random() ).replace( /\D/g, "" ),
+	expando: "jQuery" + ( core_version + Math.random() ).replace( /\D/g, "" ),    //每个对象的唯一值
 
-	noConflict: function( deep ) {
+	noConflict: function( deep ) {                                                //取消jq关键字
 		if ( window.$ === jQuery ) {
 			window.$ = _$;
 		}
@@ -375,7 +375,7 @@ jQuery.extend({
 	},
 
 	// Is the DOM ready to be used? Set to true once it occurs.
-	isReady: false,
+	isReady: false,                                                               //如果页面加载完毕以后,设置为真
 
 	// A counter to track how many items to wait for before
 	// the ready event fires. See #6781
@@ -769,58 +769,59 @@ jQuery.extend({
 
 	// Multifunctional method to get and set values of a collection
 	// The value/s can optionally be executed if it's a function
+	// line:6201,css函数调用,用来返回集合.参数:元素,回调,css属性名:可以是字符串/对象,css属性值:可以为字符串/函数/null,是否是设置
 	access: function( elems, fn, key, value, chainable, emptyGet, raw ) {
 		var i = 0,
-			length = elems.length,
-			bulk = key == null;
+			length = elems.length,                    //获取元素个数
+			bulk = key == null;                       //是否要设置值,如果key传过来为null或者undefined,返回true,其他返回false
 
 		// Sets many values
-		if ( jQuery.type( key ) === "object" ) {
-			chainable = true;
+		if ( jQuery.type( key ) === "object" ) {      //如果key是object,也就是设置多个值
+			chainable = true;                         //
 			for ( i in key ) {
-				jQuery.access( elems, fn, i, key[i], true, emptyGet, raw );
+				jQuery.access( elems, fn, i, key[i], true, emptyGet, raw );   //递归调用
 			}
 
 		// Sets one value
 		} else if ( value !== undefined ) {
 			chainable = true;
 
-			if ( !jQuery.isFunction( value ) ) {
+			if ( !jQuery.isFunction( value ) ) {      //如果值不是函数
 				raw = true;
 			}
 
-			if ( bulk ) {
+			if ( bulk ) {                             //如果key为null或者undefined
 				// Bulk operations run against the entire set
-				if ( raw ) {
+				if ( raw ) {                          //如果值不是函数,直接调用
 					fn.call( elems, value );
 					fn = null;
 
 				// ...except when executing function values
-				} else {
-					bulk = fn;
-					fn = function( elem, key, value ) {
-						return bulk.call( jQuery( elem ), value );
+				} else {                              //如果值是函数
+					bulk = fn;                        //让bulk=回调函数
+					fn = function( elem, key, value ) {       //重新生成函数
+						return bulk.call( jQuery( elem ), value );    //回调函数传入当前value
 					};
 				}
 			}
 
-			if ( fn ) {
-				for ( ; i < length; i++ ) {
+			if ( fn ) {                          		//每个元素执行回调
+				for ( ; i < length; i++ ) {             //如果值是函数,把函数返回值传入回调函数参数,如果不是函数,直接传入值
 					fn( elems[i], key, raw ? value : value.call( elems[i], i, fn( elems[i], key ) ) );
 				}
 			}
 		}
 
-		return chainable ?
-			elems :
+		return chainable ?                        		//设置,直接返回elems
 
+			elems :                                     //直接返回元素
 			// Gets
-			bulk ?
-				fn.call( elems ) :
-				length ? fn( elems[0], key ) : emptyGet;
+			bulk ?                                      //如果获取,判断bulk是否存在,如果存在
+				fn.call( elems ) :                      //如果键为null,值是undefined,执行函数,把elems当做this传入
+				length ? fn( elems[0], key ) : emptyGet;   //如果键不为空,第一个元素/key作为参数执行回调,把回调返回值返回
 	},
 
-	now: Date.now,
+	now: Date.now,                    //当前时间
 
 	// A method for quickly swapping in/out CSS properties to get correct calculations.
 	// Note: this method belongs to the css module but it's needed here for the support module.
@@ -830,15 +831,15 @@ jQuery.extend({
 			old = {};
 
 		// Remember the old values, and insert the new ones
-		for ( name in options ) {
+		for ( name in options ) {                           //记录旧属性
 			old[ name ] = elem.style[ name ];
-			elem.style[ name ] = options[ name ];
+			elem.style[ name ] = options[ name ];           //新属性放在元素上
 		}
 
-		ret = callback.apply( elem, args || [] );
+		ret = callback.apply( elem, args || [] );           //获得新属性
 
 		// Revert the old values
-		for ( name in options ) {
+		for ( name in options ) {                           //还原旧属性
 			elem.style[ name ] = old[ name ];
 		}
 
@@ -855,11 +856,11 @@ jQuery.ready.promise = function( obj ) {
 		// Catch cases where $(document).ready() is called after the browser event has already occurred.
 		// we once tried to use readyState "interactive" here, but it caused issues like the one
 		// discovered by ChrisS here: http://bugs.jquery.com/ticket/12282#comment:15
-		if ( document.readyState === "complete" ) {
+		if ( document.readyState === "complete" ) {              //如果已经结束,则执行回调
 			// Handle it asynchronously to allow scripts the opportunity to delay ready
 			setTimeout( jQuery.ready );
 
-		} else {
+		} else {                                                 //如果没结束,添加事件
 
 			// Use the handy event callback
 			document.addEventListener( "DOMContentLoaded", completed, false );
@@ -871,7 +872,7 @@ jQuery.ready.promise = function( obj ) {
 	return readyList.promise( obj );
 };
 
-// Populate the class2type map
+// Populate the class2type map:增加数据类型判断
 jQuery.each("Boolean Number String Function Array Date RegExp Object Error".split(" "), function(i, name) {
 	class2type[ "[object " + name + "]" ] = name.toLowerCase();
 });
@@ -880,14 +881,15 @@ function isArraylike( obj ) {
 	var length = obj.length,
 		type = jQuery.type( obj );
 
-	if ( jQuery.isWindow( obj ) ) {      //不是window对象
+	if ( jQuery.isWindow( obj ) ) {      			//不是window对象
 		return false;
 	}
 
-	if ( obj.nodeType === 1 && length ) {          //如果是node节点
+	if ( obj.nodeType === 1 && length ) {           //如果是node节点
 		return true;
 	}
 
+	//过滤掉函数和数组,
 	return type === "array" || type !== "function" &&
 		( length === 0 ||
 		typeof length === "number" && length > 0 && ( length - 1 ) in obj );

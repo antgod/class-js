@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>无标题文档</title>
+	<script src="../jquery.js"></script>
+</head>
+
+<body>
+<div class="a" style="width:100px;height: 100px;background: #ccc;">abc</div>
+<div style="width:100px;height: 100px;background: #ccc;display: block;visibility: hidden;position: absolute;">abc</div>
+</body>
+<script>
+	console.log($('div').get(0).offsetWidth);
+	console.log($('div').get(1).offsetWidth);
+
+	console.log('swap',$.swap($('.a').get(0),{"background": "red"},function(){
+		console.log(arguments);
+//		throw new Error;           //打开注释,不在还原旧属性
+		return "value";
+	},['args']));
+</script>
+</html>
