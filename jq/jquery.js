@@ -826,6 +826,7 @@ jQuery.extend({
 	// A method for quickly swapping in/out CSS properties to get correct calculations.
 	// Note: this method belongs to the css module but it's needed here for the support module.
 	// If support gets modularized, this method should be moved back to the css module.
+	// 获得隐藏元素宽度调用
 	swap: function( elem, options, callback, args ) {
 		var ret, name,
 			old = {};
