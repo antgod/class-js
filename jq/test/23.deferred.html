@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>无标题文档</title>
+	<script src="../jquery.js"></script>
+
+</head>
+
+<body>
+</body>
+<script>
+	var dfd= $.Deferred();
+
+	setTimeout(function(){
+		dfd.notify();
+	},1000);
+
+
+//	dfd.progress(function(){
+//		console.log(123);
+//	})
+
+	dfd.progress(function(){
+		console.log(123);
+	})
+</script>
+</html>

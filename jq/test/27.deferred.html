@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>无标题文档</title>
+	<script src="../jquery.js"></script>
+</head>
+
+<body>
+</body>
+<script>
+	function defer1(){
+		var dfd= $.Deferred();
+		dfd.resolve(123);
+		return dfd.promise();
+	}
+
+	function defer2(){
+		var dfd= $.Deferred();
+		dfd.resolve(456);
+		return dfd.promise();
+	}
+
+	var def1=defer1();
+	var def2=defer2();
+	var def3=fetch("holdtest.js");
+
+	$.when(def1,def2,def3).then(function(){
+		console.log(arguments);
+		arguments[2].then(function(res){
+			return res.text();
+		}).then(function(data){
+			console.log(data)
+		});
+	});
+
+</script>
+</html>

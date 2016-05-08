@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>无标题文档</title>
+	<script src="../jquery.js"></script>
+
+</head>
+
+<body>
+</body>
+<script>
+	function aaa(){
+		console.log(1);
+	}
+
+	function bbb(){
+		console.log(2);
+	}
+
+
+	var cb = $.Callbacks('memory');     //记忆,如果触发过fire函数,继续add,仍然会执行
+
+	cb.add( aaa );
+
+	cb.fire();
+
+	cb.add( bbb );
+
+</script>
+</html>

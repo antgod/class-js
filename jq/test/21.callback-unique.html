@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>无标题文档</title>
+	<script src="../jquery.js"></script>
+
+</head>
+
+<body>
+</body>
+<script>
+	function a(){
+		console.log(1);
+	}
+
+	function b(){
+		console.log(2);
+		return false;
+	}
+
+
+	var cb = $.Callbacks('unique');  	//去掉重复函数,去掉了最后一个添加的a函数
+
+	cb.add( a );
+
+	cb.add( b );
+
+	cb.add( a );
+
+	cb.fireWith();
+
+	cb.fire();
+</script>
+</html>

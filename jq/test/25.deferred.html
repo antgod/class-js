@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>无标题文档</title>
+	<script src="../jquery.js"></script>
+
+</head>
+
+<body>
+</body>
+<script>
+	function defer(){
+		var dfd= $.Deferred();
+
+		console.log(dfd.state());
+		setTimeout(function(){
+			dfd.resolve();
+			console.log(dfd.state());
+		},1000);
+		return dfd.promise();
+	}
+
+	var def=defer();
+	//def.reject();			//报错,因为promise上没有reject,resolove,programing函数
+
+	def.then(function(){
+		console.log('执行完毕');
+	}).fail(function(){
+		console.log('执行失败');
+	});
+
+
+</script>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>无标题文档</title>
+	<script src="../jquery.js"></script>
+</head>
+
+<body>
+</body>
+<script>
+	function defer(){
+		var dfd= $.Deferred();
+		dfd.resolve(123);
+		dfd.reject();
+		dfd.notify();
+		return dfd.promise();
+	}
+
+	var def=defer();
+	def.then(function(){
+		console.log(123);
+	},function(){
+		console.log(456);
+	},function(){
+		console.log(789);
+	});
+
+</script>
+</html>
