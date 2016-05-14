@@ -11,11 +11,11 @@
 </body>
 <script>
 	function aaa(){
-		console.log(1);
+		console.log(arguments);
 	}
 
 	function bbb(){
-		console.log(2);
+		console.log(arguments);
 	}
 
 
@@ -23,7 +23,7 @@
 
 	cb.add( aaa );
 
-	cb.fire();
+	cb.fire(1,2,3,4);
 
 	cb.add( bbb );
 

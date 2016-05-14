@@ -2973,7 +2973,7 @@ jQuery.Callbacks = function( options ) {
 			add: function() {
 				if ( list ) {
 					// First, we save the current length
-					var start = list.length;
+					var start = list.length;                          //0
 					(function add( args ) {                           //可以添加多个参数回调 ,如(fn1,fn2)
 						jQuery.each( args, function( _, arg ) {
 							var type = jQuery.type( arg );

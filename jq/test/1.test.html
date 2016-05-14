@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>无标题文档</title>
+	<script src="../jquery.js"></script>
+</head>
+
+<body>
+
+	<a >a</a>
+	<a >a</a>
+	<a >a</a>
+</body>
+<script>
+	 var a=$("a");
+
+	 var b=$("a").eq(1).eq(1).eq(1);
+
+	console.log(b.prevObject.prevObject.prevObject)
+
+</script>
+</html>

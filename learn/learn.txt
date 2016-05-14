@@ -58,3 +58,6 @@ return idx==null?
    //返回
    ar
 }
+
+11.断言
+assert(fn && 'GeneratorFunction' == fn.constructor.name, 'app.use() requires a generator function')
