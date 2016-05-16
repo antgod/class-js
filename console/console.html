@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+<table id="table1">
+    <tr>
+        <td>123</td>
+    </tr>
+</table>
+
+<script>
+//        一、显示信息的命令
+    console.info("这是info");
+
+    console.debug("这是debug");
+
+    console.warn("这是warn");
+
+    console.error("这是error");
+
+//        二、占位符
+    console.log("%d年%d月%d日",2011,3,26);
+
+    console.log("圆周率是%f",3.1415926);
+
+//        三、分组显示
+    console.group("第一组信息");
+
+    console.log("第一组第一条");
+
+    console.log("第一组第二条");
+
+    console.groupEnd();
+
+    console.group("第二组信息");
+
+    console.log("第二组第一条");
+
+    console.log("第二组第二条");
+
+    console.groupEnd();
+
+//          四、console.dir()
+    var dog={};
+    dog.bark = function(){alert("汪汪汪");};
+    console.dir(dog);
+
+//          五、console.dirxml()
+    var table = document.getElementById("table1");
+    console.dirxml(table);
+
+//          六、console.assert( result );
+    console.assert( 0 );
+
+//          七、console.trace()
+    function add(a,b){
+
+        console.trace();
+
+        return a+b;
+
+    }
+
+    var x = add3(1,1);
+
+    function add3(a,b){return add2(a,b);}
+
+    function add2(a,b){return add1(a,b);}
+
+    function add1(a,b){return add(a,b);}
+
+//          八、计时功能
+    console.time("计时器一");
+
+    for(var i=0;i<1000;i++){
+
+        for(var j=0;j<1000;j++){}
+
+    }
+
+    console.timeEnd("计时器一");
+
+//           九、性能分析
+    function Foo(){
+        for(var i=0;i<10;i++){funcA(1000);}
+        funcB(10000);
+    }
+
+    function funcA(count){
+        for(var i=0;i<count;i++){}
+    }
+
+    function funcB(count){
+        for(var i=0;i<count;i++){}
+    }
+
+    console.profile('性能分析器一');
+
+    Foo();
+
+    console.profileEnd();
+</script>
+</body>
+</html>
