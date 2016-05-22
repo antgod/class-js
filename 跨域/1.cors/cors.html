@@ -6,7 +6,7 @@
     <script>
         var request = new XMLHttpRequest();
         request.withCredentials = true;
-        request.open('GET', 'localhost:3000/abc', false);
+        request.open('GET', 'http://localhost:3000', false);
         request.send(null);
 
         if (request.status === 200) {
