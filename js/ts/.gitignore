@@ -1,7 +1,0 @@
-.DS_Store
-desktop.ini
-/node_modules
-/dist
-/tmp
-/typings
-**/*.out.html
