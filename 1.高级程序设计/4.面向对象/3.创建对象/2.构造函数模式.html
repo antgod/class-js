@@ -1,0 +1,40 @@
+	<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+	<html>
+		<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>new</title>
+		<script type="text/javascript">
+			function Person(name, age, job){
+				this.name = name;
+				this.age = age;
+				this.job = job;
+				this.sayName = function(){
+					alert(this.name);
+				};
+			}
+			var person1 = new Person("Nicholas", 29, "Software Engineer");
+			var person2 = new Person("Greg", 27, "Doctor");
+//			在这个例子中，Person()函数取代了 createPerson()函数。我们注意到，Person()中的代码
+//			除了与 createPerson()中相同的部分外，还存在以下不同之处：
+//				1.没有显式地创建对象；
+//				2.直接将属性和方法赋给了 this 对象；
+//				3.没有 return 语句。
+//			此外，还应该注意到函数名 Person 使用的是大写字母 P。按照惯例，构造函数始终都应该以一个
+//			大写字母开头，而非构造函数则应该以一个小写字母开头。这个做法借鉴自其他 OO 语言，主要是为了
+//			区别于 ECMAScript 中的其他函数；因为构造函数本身也是函数，只不过可以用来创建对象而已。
+//			要创建 Person 的新实例，必须使用 new 操作符。以这种方式调用构造函数实际上会经历以下 4
+//			个步骤：
+//				1.创建一个新对象；
+//				2.将构造函数的作用域赋给新对象（因此 this 就指向了这个新对象）；
+//				3.执行构造函数中的代码（为这个新对象添加属性）；
+//				4.返回新对象。
+//			在前面例子的最后，person1 和 person2 分别保存着 Person 的一个不同的实例。这两个对象都
+//			有一个 constructor（构造函数）属性，该属性指向 Person，如下所示。
+			alert(person1.constructor == Person); //true
+			alert(person2.constructor == Person); //true 
+		</script>
+	</head>
+	<body>
+	
+	</body>
+</html>

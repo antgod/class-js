@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>getset</title>
+    <script type="text/javascript">
+//        使用 ECMAScript 5 的 Object.getOwnPropertyDescriptor()方法，可以取得给定属性的描述
+//        符。这个方法接收两个参数：属性所在的对象和要读取其描述符的属性名称。返回值是一个对象，如果
+//        是访问器属性，这个对象的属性有 configurable、enumerable、get 和 set；如果是数据属性，这
+//        个对象的属性有 configurable、enumerable、writable 和 value
+        var book = {};
+        Object.defineProperties(book, {
+            _year  : {
+                value: 2004
+            },
+            edition: {
+                value: 1
+            },
+            year   : {
+                get: function () {
+                    return this._year;
+                },
+                set: function (newValue) {
+                    if (newValue > 2004) {
+                        this._year = newValue;
+                        this.edition += newValue - 2004;
+                    }
+                }
+            }
+        });
+
+        var descriptor = Object.getOwnPropertyDescriptor(book, "_year");
+        console.log(descriptor.value);          //2004
+        console.log(descriptor.configurable);   //false
+        console.log(typeof descriptor.get);     //"undefined"
+
+        var descriptor = Object.getOwnPropertyDescriptor(book, "year");
+        console.log(descriptor.value);      //undefined
+        console.log(descriptor.enumerable); //false
+        console.log(descriptor.get);        //"function"
+    </script>
+</head>
+<body>
+
+</body>
+</html>

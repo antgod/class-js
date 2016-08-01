@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>prototype-factory</title>
+		<script>
+			function Person(){
+			}
+			var friend = new Person();
+
+			Person.prototype = {
+				constructor: Person,              //需要重写constructor,因为指向Object
+				name : "Nicholas",
+				age : 29,
+				job : "Software Engineer",
+				sayName : function () {
+					alert(this.name);
+				}
+			};
+			friend.sayName(); 		//error
+		</script>
+	</head>
+	<body>
+		重写原型对象切断了现有原型与任何之前已经存在的对象实例之间的联系；它们引用的仍然是最初的原型
+		<img src="rewrite.png" />
+	</body>
+</html>

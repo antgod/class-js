@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>getset</title>
+		<script type="text/javascript">
+
+			var book = {};
+			Object.defineProperties(book, {
+				_year: {
+					value: 2004
+				},
+
+				edition: {
+					value: 1
+				},
+				year: {
+					get: function(){
+						return this._year;
+					},
+					set: function(newValue){
+						if (newValue > 2004) {
+							this._year = newValue;
+							this.edition += newValue - 2004;
+						}
+					}
+				}
+			});
+
+			console.log(book.year,book.edition)
+		</script>
+	</head>
+	<body>
+	
+	</body>
+</html>

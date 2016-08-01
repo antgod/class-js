@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>attr</title>
+		<script type="text/javascript">
+			/*
+				Configurable：表示能否通过 delete 删除属性从而重新定义属性，能否修改属性的特
+				性，或者能否把属性修改为访问器属性。像前面例子中那样直接在对象上定义的属性，它们的
+				这个特性默认值为 true。
+				Enumerable：表示能否通过 for-in 循环返回属性。像前面例子中那样直接在对象上定
+				义的属性，它们的这个特性默认值为 true。
+				Writable：表示能否修改属性的值。像前面例子中那样直接在对象上定义的属性，它们的
+				这个特性默认值为 true。
+				Value：包含这个属性的数据值。读取属性值的时候，从这个位置读；写入属性值的时候，
+				把新值保存在这个位置。这个特性的默认值为 undefined。
+				对于像前面例子中那样直接在对象上定义的属性，它们的Configurable、Enumerable
+				和Writable特性都被设置为 true，而Value特性被设置为指定的值。
+			*/
+
+			var a={};
+			Object.defineProperty(a,"name",{
+				configurable:false, //不能删除
+				enumerable:false,	//不能迭代
+				writable:false,		//不能重写
+				value:"lhj"
+			});
+			
+			alert(a.name);
+
+			//重写
+			a.name="lhj1";
+			//删除
+			delete a.name;
+			alert(a.name);
+			//迭代:Object的属性与方法都被标记为不可迭代，所以 forin不会打印Object原型链的属性与方法
+			for(var i in a){
+				alert(a[i]);
+			}
+		</script>
+	</head>
+	<body>
+	
+	</body>
+</html>
