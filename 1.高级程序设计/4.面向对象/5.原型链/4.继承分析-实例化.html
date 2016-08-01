@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>prototype-chain</title>
+		<script>
+
+			//        	属性		  构造器				原型				原型链				参数
+			//A构造器:   a=2     	 Function       A.prototype     Function.prototype   	null
+			//A原型:		a=3   		A				 -			  Object.prototype	 	 -
+			//A对象:		a=1			A 				 -			    A.prototype          -
+
+			//B构造器:   b=12    	 Function       B.prototype     Function.prototype   	null
+			//B原型:     a=1,b=13	B				 -				A.prototype          -
+			//B对象:		a=1,b=11    B       		 -              B.prototype          -
+
+			function A() {
+			    this.a=1;
+			}
+
+
+			A.a=2;
+			A.prototype.a=3;
+			
+			function B() {
+				this.b=11;
+			   	A.call(this);
+			}
+			
+			
+			B.prototype=new A();
+			B.prototype.constructor = B; 
+			B.b=12;
+			B.prototype.b=13;
+			
+			var b=new B();
+			var a=new A();
+
+			//        	属性		  			构造器				原型					原型链					参数
+			//A构造器:   a=1,name=A          Function			    A.prototype			Function.prototype  	null
+			//A原型:     a=3					A 					-					Object.prototype		-
+			//A对象:     a=1					A					-					A.prototype				-
+			
+			//B构造器:   b=12,name=B			Function	 		B.prototype         Function.prototype		null
+			//B原型:     a=1,b=13			B					-                   A.prototype				null
+			//B对象:     a=1,b=11            B                   -                   B.prototype             null
+			
+		
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

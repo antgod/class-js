@@ -24,15 +24,15 @@
 			B.prototype.b=13;
 			
 			var b=new B();
-			
-			//分析：从父类往子类分析(__proto__)
-			//A类：a=2,arguments:null,name:"A"
-			//A原型：a=3， constructor指向A，__proto__指向Object
-			//A对象：a=1，__proto__指向A原型
-			
-			//B类：b=12,arguments:null,name:"B"
-			//B原型继承A原型：a=3(A原型),b=13,constructor指向B，__proto__指向Object
-			//B对象：a=1(构造),b=11,__proto__指向B原型
+
+			//        	属性		  			构造器				原型					原型链					参数
+			//A构造器:   a=1,name=A          Function			    A.prototype			Function.prototype  	null
+			//A原型:     a=3					A 					-					Object.prototype		-
+			//A对象:     a=1					A					-					A.prototype				-
+
+			//B构造器:   b=12,name=B			Function	 		B.prototype         Function.prototype		null
+			//B原型:     a=3,b=13			B					-                   Object.prototype		null      (这一条属性和原型链有所改变)
+			//B对象:     a=1,b=11            B                   -                   B.prototype             null
 			
 		
 		</script>

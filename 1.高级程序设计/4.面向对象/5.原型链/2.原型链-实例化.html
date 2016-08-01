@@ -5,7 +5,7 @@
 		<title>__proto__test</title>
 		<script>
 			function shape(){
-				this.type=null;
+				this.type=1;
 				//返回当前对象函数名
 				this.getType=function(){
 					return this.constructor.name;
@@ -13,6 +13,7 @@
 			}
 			
 			function Triangle(a,b,c){
+				shape.call(this);
 				this.a=a;
 				this.b=b;
 				this.c=c;
@@ -21,19 +22,18 @@
 			Triangle.prototype=new shape();
 			Triangle.prototype.getPerimeter=function(){
 				return this.a+this.b+this.c;
-			}
-			Triangle.prototype.constructor=Triangle;	//修改指向，否则指向shape
-			//alert(Triangle.prototype.constructor);
-		
+			};
+			Triangle.prototype.constructor=Triangle;						//修改指向，否则指向shape
+
 			var t=new Triangle(1,2,3);
-			alert(t.constructor);
-			alert(shape.prototype.isPrototypeOf(t));	//t在shape的原型链中
-			alert(t.getPerimeter());					//返回6
-			alert(t.getType());							//返回当前对象函数名
+			console.log(Triangle.prototype.constructor===t.constructor);	//指向Triangle
+			console.log(shape.prototype.isPrototypeOf(t));					//t在shape的原型链中
+			console.log(t.getPerimeter());									//返回6
+			console.log(t.getType());										//返回当前对象函数名
 			
 			for(var i in t){
 				if(t.hasOwnProperty(i)){
-					console.log(i);						//列出当前对象的属性与方法
+					console.log(i);											//列出当前对象的属性与方法
 				}
 			}
 		</script>
