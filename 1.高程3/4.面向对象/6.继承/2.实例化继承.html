@@ -1,0 +1,39 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+    <title>copy</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script>
+
+        function Person(name, sex) {
+            this.name = name;
+            this.sex = sex;
+        }
+
+        Person.prototype.showName = function () {
+            console.log("Person:" + this.name);
+        };
+
+        function Worker() {
+            //没有调用对象，默认window,在window添加 name和sex
+            //Person(name,sex);
+            //伪装构造函数
+            this.job = arguments[2];
+        }
+
+        Worker.prototype = new Person('lhj', 'man');
+
+        var person = new Person("Person");
+        var worker = new Worker('child','woman','work');
+
+        //1.Worker的原型直接指向Person的实例化对象,而不是指向Person原型
+        console.log(worker.__proto__.__proto__==Person.prototype);
+
+        //2.Person的属性直接付给了Worker对象,而worker拿不到自己的属性
+        console.log(worker.name,worker.sex,worker.job);
+
+    </script>
+</head>
+<body>
+</body>
+</html>

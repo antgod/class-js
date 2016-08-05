@@ -1,0 +1,11 @@
+<script>
+	function say(num1,num2){
+		//不要声明全局变量，在严格模式下会给出警告，局部变量访问速度也要比全局变量要快，因为不用向上搜索作用域链
+		console.log(sum);
+		sum=num1+num2;   //变量会被挂载最近的活动对象上
+		console.log(sum);
+		var sum=num1*num2;
+		console.log(sum);
+	}
+	say(5,10);
+</script>
