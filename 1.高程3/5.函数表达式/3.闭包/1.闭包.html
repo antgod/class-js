@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script>
+//        有不少开发人员总是搞不清匿名函数和闭包这两个概念，因此经常混用。闭包是指有权访问另一个
+//        函数作用域中的变量的函数。创建闭包的常见方式，就是在一个函数内部创建另一个函数
+
         function createComparisonFunction(propertyName) {
 
             return function(object1, object2){
@@ -19,6 +22,14 @@
                 }
             };
         }
+
+        //创建函数
+        var compareNames = createComparisonFunction("name");
+        //调用函数
+        var result = compareNames({ name: "Nicholas" }, { name: "Greg" });
+        //解除对匿名函数的引用（以便释放内存）
+        compareNames = null;
+
     </script>
 </head>
 <body>

@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>closures-立即执行</title>
+		<script type="text/javascript">
+			//无论在什么地方，只要临时需要一些变量，就可以使用私有作用域，
+			function outputNumbers(count){
+				(function () {
+					for (var i=0; i < count; i++){
+						alert(i);
+					}
+				})();
+
+				alert(i); //导致一个错误！
+			}
+
+			//这种做法可以减少闭包占用的内存问题，因为没有指向匿名函数的引用。只要函
+			//数执行完毕，就可以立即销毁其作用域链了。
+
+		</script>
+	</head>
+	<body>
+	
+	</body>
+</html>

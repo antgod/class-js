@@ -1,0 +1,23 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>closures-事件.html</title>
+    <script type="text/javascript">
+        var name = "The Window";
+        var object = {
+            name : "My Object",
+            getNameFunc : function(){
+                var that = this;    //修改指向,如果不修改,指向window,argument存在同样的问题
+                return function(){
+                    return that.name;
+                };
+            }
+        };
+        alert(object.getNameFunc()()); //"My Object"
+
+    </script>
+</head>
+<body>
+</body>
+</html>
