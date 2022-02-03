@@ -1,108 +1,3 @@
-function ArrayList(){
-	this.arr=new Array();
-	this.size=0;
-	
-	this.add=function(obj){
-		this.arr[this.size]=obj;
-		++this.size;
-	}
-	
-	this.get=function(idx){
-		if(idx<0||idx>=this.size)
-		{
-			alert("ArrayList: ADD > index out of bounds");
-			return null;
-		}
-		return this.arr[idx];
-	}
-	
-	this.set=function(idx,node){
-		if(idx<0||idx>=this.size)
-		{
-			alert("ArrayList: SET > index out of bounds");
-			return null;
-		}
-		this.arr[idx]=node;
-	}
-	
-	this.rmId=function(idx){
-		if(idx<0||idx>=this.size)
-		{
-			alert("ArrayList: RMID > index out of bounds");
-			return null;
-		}
-		var num=parseInt(idx);
-		if(num!=idx)
-		{
-			alert("ArrayList: RM > index not a number");
-			return null;
-		}
-		var res=this.arr[idx];
-		for(var i=idx;i<this.size-1;++i)
-		{
-			this.arr[i]=this.arr[i+1];
-		}
-		this.arr[this.size-1]=null;
-		return res;
-	}
-	
-	this.rm=function(obj){
-		
-		for(var i=0;i<this.size;++i)
-		{
-			
-			if(this.arr[i]==obj)
-			{
-				 return this.rmId(i);
-			}
-		}
-		return null;
-	}
-	
-	this.show=function(){
-		var str="";
-		for(var i=0;i<this.size;++i)
-		{
-			str+=this.arr[i]+"\r\n";
-		}
-		alert(str+"size="+this.size);
-	}
-}
-
-function LinkList(){  
-    this.x=[]; 
-    this.y=[]; 
-} 
-LinkList.prototype={ 
-    removeLast:function(){  
-        var x=this.x.pop(); 
-        var y=this.y.pop(); 
-        return [x,y]; 
-    }, 
-    addFirst:function(ret){ 
-        var x=[ret[0]]; 
-        var y=[ret[1]]; 
-        this.x=x.concat(this.x); 
-        this.y=y.concat(this.y); 
-    }, 
-    getFirst:function(){ 
-        return [this.x[0],this.y[0]]; 
-    }, 
-    addLast:function(ret){ 
-        this.x.push(ret[0]); 
-        this.y.push(ret[1]); 
-    }, 
-    getLen:function(){ 
-        return this.x.length; 
-    } 
-} 
-
-function toJSON(string) {
-	return JSON?JSON.parse(string):eval('('+jsonStr+')');
-}	
-
-
-
 function getInnerText(element) {
 	return (typeof element.textContent == "string") ? element.textContent: element.innerText;
 }
@@ -185,23 +80,6 @@ function hasPrototypeProperty(object, name){
 	return !object.hasOwnProperty(name) && (name in object);
 }
 
-String.prototype.startsWith = function (text) {
-	return this.indexOf(text) == 0;
-}
-
-
-
-function inheritPrototype(subType, superType){
-	function object(o){
-		function F(){}
-		F.prototype = o;
-		return new F();
-	}
-	var prototype = object(superType.prototype); // 创建对象
-	prototype.constructor = subType; // 增强对象
-	subType.prototype = prototype;
-}
-
 // 检测插件（在IE 中无效）
 function hasPlugin(name){
 	name = name.toLowerCase();
@@ -225,41 +103,6 @@ function convertToArray(nodes) {
         }
     }
     return array;
-}
-
-
-
-
-
-/**
- * 解析url获得参数对象
- */
-function getParams(){
-	var url = location.search,
-		Params = {},
-		params = [];
-
-	if (url.indexOf('?') != -1) {
-		params = url.substr(1).split('&');
-		for (var i = params.length; i--;) {
-			var kv = params[i].split('='),
-				k = kv[0],
-				v = kv[1];
-
-			Params[k] = unescape(v);
-		}
-	}
-
-	return Params;
-}
-
-/**
- * string模板方法
- */
-function stringTemplate(str,data,regexp){
-	return str.replace(regexp || /\\?\{([^{}]+)\}/g, function (match, name) {
-		return (data[name] === undefined) ? '' : data[name];
-	});
 }
 
 /**
@@ -303,24 +146,6 @@ Date.prototype.format = function(fmt) {
 	return fmt;
 };
 
-function initDataPicker(selector){
-	var $starttime = $(selector); //基准时间左边界控件
-	var options = {
-		language: 'zh-CN',
-		format: 'yyyy-mm-dd',
-		weekStart: 1,
-	    autoclose: 1,
-	    todayHighlight: 1,
-	    startView: 2,
-	    minView: 2,
-	    forceParse: 0,
-	    showMeridian: 1
-	};
-    $starttime.datetimepicker(options).on('changeDate', function(ev) {
-        var ed = new Date(ev.date.getTime() - 8 * 60 * 60 * 1000);
-    });
-}
-
 /**
  * 解析url获得参数对象
  */
@@ -343,27 +168,6 @@ function getParams() {
     return Params;
 }
 
-function initUrl(o){
-    var url=[];
-    for(var i in o){
-        var val=o[i];
-        url.push(i+"="+val);
-    }
-    return url.join("&")
-}
-
-function extend(Parent,Expand){
-    var Child=function(){
-        Parent.call(this);
-    }
-    Child.prototype=new Parent();
-
-    this.mix(Child.prototype,Expand);
-
-    Child.prototype.constructor = Child;
-    return Child;
-}
-
 function mix(r, s) {
     if(!r)r={};
     for ( var k in s) {
@@ -377,3 +181,5 @@ function isJson(obj){
     var isjson = typeof(obj) == "object" && Object.prototype.toString.call(obj).toLowerCase() == "[object object]" && !obj.length
     return isjson;
 }
+
+const wait = async (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds));
